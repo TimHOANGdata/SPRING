@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class AnnuaireDatabaseService {
     
     @Autowired
+    static
     PersonneRepository personneRepository;
     
 
@@ -42,5 +43,9 @@ public class AnnuaireDatabaseService {
 
     public List<Personne> getPersonnesByNomAndPrenom(String nom, String prenom){
         return personneRepository.findAllByNomAndPrenom(nom,prenom);
+    }
+
+    public int additionner(int i, int j) {
+        return i+j;
     }
 }
