@@ -11,10 +11,13 @@ public class Ville {
     private Integer id;
     private String nom;
     private String pays;
+    @Column(name="nombre_habitant")
+    private int nombreHabitant;
     
-    public Ville(String nom, String pays) {
+    public Ville(String nom, String pays, int nombreHabitant) {
         this.nom = nom;
         this.pays = pays;
+        this.nombreHabitant = nombreHabitant;
     }
     
     public Ville() {
@@ -49,5 +52,14 @@ public class Ville {
     public String toString() {
         return "Ville [id=" + id + ", nom=" + nom + ", pays=" + pays +"]";
     }
+
+    public int getNombreHabitant() {
+        return nombreHabitant;
+    }
+
+    public void setNombreHabitant(int nombreHabitant) {
+        this.nombreHabitant = nombreHabitant;
+    }
+  
 }
 

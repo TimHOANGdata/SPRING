@@ -34,4 +34,7 @@ public class AnnuaireDatabaseService {
         //optional est un conteneur soid vide , soid contenir Personne
         return optional;
     }
+    public List<Ville> getVilleByNombreHabitantGreaterThan(int nombreHabitant){
+        return villeRepository.findAllByNombreHabitantgreaterthan(nombreHabitant);
+    }
 }

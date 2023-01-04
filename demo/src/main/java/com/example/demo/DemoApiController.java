@@ -1,6 +1,7 @@
 package com.example.demo;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,10 +25,21 @@ class DemoApiController {
     //autowired permet de verifier si cet objet existe deja dans le spring components
     // si non il va le creer et met dans le spring components
     AnnuaireDatabaseService annuaireDatabaseService; //= new AnnuaireService();
+
+    @Autowired
+    PersonneMapper personneMapper;
     
     @GetMapping("personnes")
-    public List<Personne> getPersonnes(){
-        return annuaireDatabaseService.getPersonnes();
+    public List<PersonneDTO> getPersonnes(){
+        List<PersonneDTO> dtos = new ArrayList<>();
+
+        List<Personne> entities = annuaireDatabaseService.getPersonnes();
+
+        for(Personne p : entities){
+            PersonneDTO dto = personneMapper.convertToDTO(p);
+            dtos.add(dto);
+        }
+        return dtos;
     }
 
     @PostMapping("personnes")

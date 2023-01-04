@@ -1,5 +1,6 @@
 package spring.villes;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,60 +12,80 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-
 
 @RestController
 public class ApiController {
-    
+
     @Autowired
     AnnuaireDatabaseService annuaireDatabaseService;
 
     @GetMapping("villes")
-    public List<Ville> getVilles(){
+    public List<Ville> getVilles() {
         return annuaireDatabaseService.getVilles();
     }
 
     @GetMapping("villes/{id}")
-    public ResponseEntity getVilleById(@PathVariable Integer id){
+    public ResponseEntity getVilleById(@PathVariable Integer id) {
         Optional<Ville> optional = annuaireDatabaseService.getVilleById(id);
-        if(optional.isEmpty()){
+        if (optional.isEmpty()) {
             return ResponseEntity.notFound().build();
-        }else{
+        } else {
             return ResponseEntity.ok(optional.get());
         }
     }
 
     @PostMapping("villes")
-    public void addVille(@RequestBody Ville ville){
+    public void addVille(@RequestBody Ville ville) {
         annuaireDatabaseService.addVille(ville);
         System.out.println(ville);
     }
 
     @DeleteMapping("villes/{id}")
-    public ResponseEntity DeleteById(@PathVariable Integer id){
+    public ResponseEntity DeleteById(@PathVariable Integer id) {
         Optional<Ville> optional = annuaireDatabaseService.getVilleById(id);
-        if(optional.isEmpty()){
+        if (optional.isEmpty()) {
             return ResponseEntity.notFound().build();
-        }else{
+        } else {
             annuaireDatabaseService.delete(id);
             return ResponseEntity.ok().build();
         }
     }
 
     @PutMapping("villes/{id}")
-    public ResponseEntity Update(@PathVariable Integer id,  @RequestBody Ville ville){
+    public ResponseEntity Update(@PathVariable Integer id, @RequestBody Ville ville) {
         Optional<Ville> optional = annuaireDatabaseService.getVilleById(id);
-        if(optional.isEmpty()){
+        if (optional.isEmpty()) {
             return ResponseEntity.notFound().build();
-        }else{
-            if(ville.getId().equals(id)){
+        } else {
+            if (ville.getId().equals(id)) {
                 annuaireDatabaseService.update(ville, id);
                 return ResponseEntity.ok(optional.get());
-            }else{
+            } else {
                 return ResponseEntity.badRequest().build();
             }
-        }    
+        }
+    }
+
+    @GetMapping("findvillesbynombrehabitant")
+    public ResponseEntity GetVillesByNombreHabitant(@RequestParam int n) {
+        List<Ville> villes = annuaireDatabaseService.getVilles();
+        List<Ville> villesOk = new ArrayList<Ville>();
+        for (Ville v : villes) {
+            if (v.getNombreHabitant() >= n) {
+                villesOk.add(v);
+            }
+        }
+        if (villesOk.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(villesOk);
+        }
+    }
+
+    @GetMapping("findvillesbynombrehabitant1")
+    public List<Ville> GetVillesByNombreHabitant1(@RequestParam int n) {
+        return annuaireDatabaseService.getVilleByNombreHabitantGreaterThan(n);
     }
 }
