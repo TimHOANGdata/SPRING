@@ -10,4 +10,5 @@ public interface PersonneRepository extends JpaRepository<Personne,Integer> {
     //interface va etre injecter par autowired
 
     public List<Personne> findAllByNom(String nom);     
+    public List<Personne> findAllByNomAndPrenom(String nom, String prenom);    
 }

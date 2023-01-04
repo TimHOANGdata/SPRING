@@ -39,4 +39,8 @@ public class AnnuaireDatabaseService {
     public List<Personne> getPersonnesByNom(String nom){
         return personneRepository.findAllByNom(nom);
     }
+
+    public List<Personne> getPersonnesByNomAndPrenom(String nom, String prenom){
+        return personneRepository.findAllByNomAndPrenom(nom,prenom);
+    }
 }

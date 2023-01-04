@@ -57,4 +57,15 @@ class DemoApiController {
             return ResponseEntity.ok(personnes);
         }
     }
+
+     //findallbynomandprenom?nom=tim&prenom=hoang
+     @GetMapping("findallbynomandprenom")
+     public ResponseEntity getPersonnesByNomAndPrenom(@RequestParam String nom,@RequestParam String prenom){
+         List<Personne> personnes = annuaireDatabaseService.getPersonnesByNomAndPrenom(nom,prenom);
+         if(personnes.isEmpty()){
+             return ResponseEntity.notFound().build();
+         }else{
+             return ResponseEntity.ok(personnes);
+         }
+     }
 }       
