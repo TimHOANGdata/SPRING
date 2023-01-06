@@ -10,17 +10,23 @@ public class Personne {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
+    // @JsonIgnore
     private Integer id;
     private String nom;
     private String prenom;
+
+    @ManyToOne
+    Adresse adresse;
    
-    public Personne(String nom, String prenom,Integer id) {
+    
+    public Personne(String nom, String prenom) {
         this.nom = nom;
         this.prenom = prenom;
-        this.id = id;
     }
     public Personne(){};
+    public Personne(Integer id){
+        this.id = id;
+    }
     
     public String getNom() {
         return nom;
@@ -43,5 +49,11 @@ public class Personne {
     }
     public void setId(Integer id) {
         this.id = id;
+    }
+    public Adresse getAdresse() {
+        return adresse;
+    }
+    public void setAdresse(Adresse adresse) {
+        this.adresse = adresse;
     }    
 }

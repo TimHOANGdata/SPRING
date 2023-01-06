@@ -11,9 +11,10 @@ import org.springframework.stereotype.Service;
 public class AnnuaireDatabaseService {
     
     @Autowired
-    static
     PersonneRepository personneRepository;
     
+    @Autowired
+    ChienRepository chienRepository;
 
     public void addPersonne(Personne personne) {
         personneRepository.save(personne);
@@ -47,5 +48,8 @@ public class AnnuaireDatabaseService {
 
     public int additionner(int i, int j) {
         return i+j;
+    }
+    public void addChien(Chien chien){
+        chienRepository.save(chien);
     }
 }

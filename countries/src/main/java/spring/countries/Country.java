@@ -11,7 +11,7 @@ public class Country {
      
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
+    // @JsonIgnore
     private Integer id;
     private String name;
     private String capital;

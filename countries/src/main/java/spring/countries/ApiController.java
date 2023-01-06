@@ -19,6 +19,9 @@ public class ApiController {
     @Autowired
     AnnuaireDatabaseService annuaireDatabaseService;
 
+    @Autowired
+    CountryRepository countryRepository;
+
     @GetMapping("games")
     public CountryDTO startGame(){
         CountryMapper countryMapper = new CountryMapper();
@@ -36,7 +39,12 @@ public class ApiController {
         if(capitalLowerCase.equals(guessCapitalLowerCase)){
             return ResponseEntity.ok("CORRECT");
         }else{
-            return ResponseEntity.ok("WRONG - "+country);
+            return ResponseEntity.badRequest().body("WRONG - "+country);
         }
+    }
+
+    @GetMapping("games/{id}")
+    public Country getCountryById(@PathVariable Integer Id){
+        return countryRepository.findById(Id).get();
     }
 }

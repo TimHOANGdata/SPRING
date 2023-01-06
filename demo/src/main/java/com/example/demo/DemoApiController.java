@@ -26,15 +26,15 @@ class DemoApiController {
     // si non il va le creer et met dans le spring components
     AnnuaireDatabaseService annuaireDatabaseService; //= new AnnuaireService();
 
-    @Autowired
-    PersonneMapper personneMapper;
+    
+    
     
     @GetMapping("personnes")
     public List<PersonneDTO> getPersonnes(){
         List<PersonneDTO> dtos = new ArrayList<>();
 
         List<Personne> entities = annuaireDatabaseService.getPersonnes();
-
+        PersonneMapper personneMapper = new PersonneMapper();
         for(Personne p : entities){
             PersonneDTO dto = personneMapper.convertToDTO(p);
             dtos.add(dto);
@@ -79,5 +79,12 @@ class DemoApiController {
          }else{
              return ResponseEntity.ok(personnes);
          }
+     }
+
+     @PostMapping("chiens")
+     public ResponseEntity addChien(@RequestBody Chien chien){
+        
+        annuaireDatabaseService.addChien(chien);
+        return ResponseEntity.ok(chien.getMaitre().getId());
      }
 }       
