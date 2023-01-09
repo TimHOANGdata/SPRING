@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import spring.library.Auteur.Auteur;
@@ -104,14 +106,15 @@ public class AnnuaireDatabaseService {
         livreRepository.save(livre);
     }
 
+    public List<Livre> rechercheLivre1(String text){
+        return livreRepository.findAllByNomContainingIgnoreCaseOrResumeContainingIgnoreCase(text, text);
+    }
     public List<Livre> rechercheLivre(List<Livre> livres, String text) {
         List<Livre> livreRecherche = new ArrayList<>();
         String textLowerCase = text.toLowerCase();
 
         for (Livre l : livres) {
-
             String nomLowerCase = l.getNom().toLowerCase();
-            
             if (l.getResume()==null) {
                 if (nomLowerCase.contains(textLowerCase)) {
                     livreRecherche.add(l);
