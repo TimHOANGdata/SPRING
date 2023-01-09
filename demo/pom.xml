@@ -53,7 +53,12 @@
 			<scope>runtime</scope>
 		</dependency>
 		<!--dependency pour connecter au postgresql-->
-
+		
+		<!-- add thymeleaf : java template thymeleaf  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId> 
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
 
 
 	</dependencies>
