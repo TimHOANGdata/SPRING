@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>LIBRARY</title>
+    </head>
+    <body>
+        <h1>WELCOME TO OUR LIBRARY</h1>
+        <h2>LIST OF BOOKS</h2>
+        <div th:each="p:${livres}">
+        <a th:href="@{/livre(id=${p.getId()})}" th:text="${p.getNom()}+ ' |'" ></a>
+        </div>  
+    </body>
+</html>

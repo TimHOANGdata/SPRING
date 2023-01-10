@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>LIBRARY</title>
+    </head>
+    <body>
+        <h1>WELCOME TO OUR LIBRARY</h1>
+        <h2>IMPORT A WRITER</h2>
+        <form method="POST" action="auteurs">
+            <label>Prenom:</label><input type="text" name="prenom" id="prenom">
+            <label>Nom:</label><input type="text" name="nom" id="nom">
+            <input type="submit" value="Ajouter">
+        </form>
+
+        <h2>IMPORT A CATEGORY</h2>
+        <form method="POST" action="categories">
+            <label>Nom:</label><input type="text" name="nom" id="nom">
+            <input type="submit" value="Ajouter">
+        </form>
+
+        <h2>IMPORT A BOOK</h2>
+        <form method="POST" action="livres">
+            <label>Nom:</label><input type="text" name="nom" id="nom">
+            <br/>
+
+            <tr>
+                <td>Categories :</td>
+                <td>
+                  <th:block th:each="c : ${categories}">
+                    <input type="checkbox" th:value="${c.id}" name="categories"/>
+                    <label th:text="${c.getNom()}"></label>
+                  </th:block>
+                </td>
+            </tr>
+            <br/>
+
+            <label>Auteur:</label>
+            <select name="auteur">
+                <option th:each="a : ${auteurs}"  th:value="${a.id}" th:text="${a.getNom()+' '+a.getPrenom()}"></option>
+            </select>
+            <br/>
+            <input type="submit" value="Ajouter">
+        </form>
+
+    </body>
+</html>

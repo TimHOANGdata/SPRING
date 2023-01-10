@@ -14,5 +14,31 @@
         <h1>Annuaires de personnes</h1>
         <p th:text=" 'bienvenu à ' + ${nom} +' '+${prenom}">Tim</p>
         <!-- USE '' to replace "" in the "" -->
+        
+        <!-- add condition      
+        <p th:if="${age} >= 17">Vous etes une personne majeure</p>
+        <p th:if="${age} < 17">Vous etes une personne mineure</p> -->
+
+        <!-- add switch -->
+        <h2>Liste des personnes dans l'Annuaires</h2>
+        <div th:switch="${personnes.size()}">
+            <p th:case="0">La liste est vide</p>
+            <p th:case="1">La liste contient 1 personne</p>
+            <p th:case="*">La liste contient plusieurs personnes</p>
+        </div>
+
+       
+        <!-- each is used like a boucle -->
+        <ul>
+            <li th:each="p:${personnes}" th:text="${p.getPrenom()} + ' ' + ${p.getNom()}"></li>
+            
+        </ul>
+
+         <!-- use formule to enter data -->
+         <form method="POST" action="personnes">
+            <label>Prenom:</label><input type="text" name="prenom" id="prenom">
+            <label>Nom:</label><input type="text" name="nom" id="nom">
+            <input type="submit" value="Ajouter">
+         </form>
     </body>
 </html>
